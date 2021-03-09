@@ -1,0 +1,35 @@
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+logging.level.root=INFO
+server.port=8090
+
+
+http://localhost:8090/dataserver/data/BLOCKTYPEA
+http://localhost:8090/dataserver/update/TSLA-USDGBP-10Y/BLOCKTYPEB
+
+
+[
+    {
+        "dataHeader": {
+            "name": "TSLA-USDGBP-10Y",
+            "blockType": "BLOCKTYPEA"
+        },
+        "dataBody": {
+            "dataBody": "AKCp5fU4WNWKBVvhXsbNhqk33tawri9iJUkA5o4A6YqpwvAoYjajVw8xdEw6r9796h1wEp29D",
+            "checksum": null
+        }
+    }
+]
+
+
+
+        CompletableFuture<HttpStatus> futureList =  CompletableFuture.supplyAsync(() ->  restTemplate.postForObject(url, data, HttpStatus.class))
+                        .exceptionally(e -> {
+                            log.error("Failed to update data lake for data: {}",data); 
+                            return null;
+                        });
